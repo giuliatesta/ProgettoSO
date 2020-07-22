@@ -1,43 +1,33 @@
 package unipv.so.client;
 
-import unipv.so.Constants;
-
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.List;
 
 import static unipv.so.Constants.SERVER_HOST;
 import static unipv.so.Constants.SERVER_PORT;
 
 public class Client {
 
-    public static Client create() {
-        return new Client();
+    private final List<Integer> numbers;
+
+    public Client(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
+
+    public static Client create(List<Integer> numbers) {
+        return new Client(numbers);
     }
 
     public void start() throws IOException {
-        // Crea la connessione tra Server e Client
-        Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
-        // Scrive sulla socket il numero per il Server
-        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-        printWriter.println("5");
 
-        // Legge dalla socket il risultato
-        int result = read(socket.getInputStream());
-
-        // Stampa il risultato
-        System.out.println(result);
-    }
-
-    // Legge dalla socket il risultato scritto e calcolato dal Server
-    private int read(InputStream inputStream) {
-        Scanner scanner = new Scanner(inputStream);
-        if(scanner.hasNext()) {
-            return Integer.parseInt(scanner.next());
-        } else {
-            return 0;
+        for(Integer i : numbers) {
+            // Crea la connessione tra Server e Client
+            Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
+            // Crea il thread per la comunicazione sulla socket
+            ClientThread thread = ClientThread.create(socket, i);
+            thread.start();
         }
+
     }
 }
