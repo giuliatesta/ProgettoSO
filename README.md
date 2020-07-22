@@ -1,4 +1,4 @@
-# ProgettoSO
+# Progetto Sistemi Operativi 
 
 L'applicazione è divisa in un Client e un Server. Il Server rimane in ascolto su una porta socket predefinita e 
 opererà il calcolo del fattoriale del numero inviato dal Client.
