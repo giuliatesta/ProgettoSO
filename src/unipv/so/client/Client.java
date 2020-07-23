@@ -20,7 +20,6 @@ public class Client {
     }
 
     public void start() throws IOException {
-
         for(Integer i : numbers) {
             // Crea la connessione tra Server e Client
             Socket socket = new Socket(SERVER_HOST, SERVER_PORT);

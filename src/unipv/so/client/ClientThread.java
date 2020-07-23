@@ -6,14 +6,29 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * Classe thread per inviare le richieste al Server
+ */
 public class ClientThread extends Thread{
     private final Socket socket;
-    private int  number;
+    private final int  number;
 
+    /**
+     * Costruttore privato
+     * @param socket socket a cui fare riferimento
+     * @param number numero inserito nella socket
+     */
     private ClientThread(Socket socket, int number) {
         this.socket = socket;
         this.number = number;
     }
+
+    /**
+     * Crea una nuova istanza di ClientThread
+     * @param socket socket di riferimento
+     * @param number numero inserito nella socket
+     * @return nuova istanza
+     */
     public static ClientThread create(Socket socket, int number) {
         return new ClientThread(socket, number);
     }
@@ -26,7 +41,7 @@ public class ClientThread extends Thread{
             printWriter.println(number);
 
             // Legge dalla socket il risultato
-            int result = read(socket.getInputStream());
+            long result = read(socket.getInputStream());
 
             // Stampa il risultato
             System.out.println(result);
@@ -36,11 +51,15 @@ public class ClientThread extends Thread{
 
     }
 
-    // Legge dalla socket il risultato scritto e calcolato dal Server
-    private int read(InputStream inputStream) {
+    /**
+     * Legge dalla socket il risultato scritto e calcolato dal Server
+     * @param inputStream stream dove leggere il numero scritto dal Server
+     * @return numero inserito
+     */
+    private long read(InputStream inputStream) {
         Scanner scanner = new Scanner(inputStream);
         if(scanner.hasNext()) {
-            return Integer.parseInt(scanner.next());
+            return Long.parseLong(scanner.next());
         } else {
             return 0;
         }
