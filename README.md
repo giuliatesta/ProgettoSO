@@ -6,3 +6,5 @@ opererà il calcolo del fattoriale del numero inviato dal Client.
 
 Il Server crea un thread per ogni richiesta ricevuta in modo da effetturare i calcoli in parallelo. 
 Anche il Client usa una architettura multi - thread per inviare in parallelo più richieste al Server. 
+
+Il calcolo del fattoriale, essendo stato implementato con la primitiva long, fa in overflow per richieste di fattoriali maggiori di 20. 
