@@ -67,8 +67,7 @@ public class ServerThread extends Thread{
      * @return fattoriale di number
      */
     private long calculate(int number) {
-        FactorialCalculator calculator = FactorialCalculator.create();
-        return calculator.calculate(number);
+        return FactorialCalculator.calculate(number);
     }
 
     /**

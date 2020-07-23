@@ -6,41 +6,26 @@ package unipv.so.server;
 public class FactorialCalculator {
 
     /**
-     * Crea una nuova istanza di FactorialCalculator
-     * @return nuova istanza
-     */
-    static FactorialCalculator create() {
-        return new FactorialCalculator();
-    }
-
-    /**
      * Calcola in maniera ricorsiva il fattoriale
+     *
      * @param number numero su cui calcolare il fattoriale
      * @return fattoriale calcolato
      */
-    public long calculate(int number) {
-        long result = 0;
-        if(validation(number)) {
+    public static long calculate(int number) {
+        // Controlla se il numero è valido
+        if (number < 0) {
+            throw new IllegalArgumentException("Il numero deve essere positivo");
+        }
+        long result;
+        // Se il numero inserito è valido
+        if (number == 0) {
+            // Se il numero inserito è zero il suo fattoriale è 1
+            result = 1;
+        } else {
             // Se il numero inserito è valido
-            if (number == 0) {
-                // Se il numero inserito è zero il suo fattoriale è 1
-                result = 1;
-            } else {
-                // Se il numero inserito è valido
-                // System.out.println("RESULT 1 : " + result + "\n NUMBER: " + number);
-                result = number * calculate(number - 1);
-                System.out.println("RESULT 2 : " + result + "\t NUMBER: " + number);
-            }
+            // System.out.println("RESULT 1 : " + result + "\n NUMBER: " + number);
+            result = number * calculate(number - 1);
         }
         return result;
-    }
-
-    /**
-     * Controlla la validità del numero inserito
-     * @param number numero inserito
-     * @return true se il numero è valido
-     */
-    public boolean validation(int number) {
-        return number >= 0;
     }
 }
